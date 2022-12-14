@@ -11,20 +11,21 @@ import { decrement, increment, reset } from './lib/redux/actions/acciones.action
 export class AppComponent implements OnDestroy {
   title = 'redux-app';
   count$: Observable<number>
- 
-  constructor(private store: Store<{ contadores: number }>) {
+
+  constructor(private store: Store<{ contadores: number, prueba: number }>) {
     this.count$
-     = store.select('contadores');
-  }  
- 
+      = store.select('contadores');
+    store.select('prueba').subscribe(console.log)
+  }
+
   increment() {
     this.store.dispatch(increment())
   }
-  
+
   decrement() {
     this.store.dispatch(decrement())
   }
-  
+
   reset() {
     this.store.dispatch(reset())
   }
