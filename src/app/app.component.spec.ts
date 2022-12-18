@@ -1,9 +1,10 @@
+import { increment } from './lib/redux/actions/acciones.action';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing'
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 
 const estadoInicial: { contadores: number, prueba: number } = {
   contadores: 0,
@@ -33,17 +34,21 @@ describe('AppComponent', () => {
     component = fixture.componentInstance;
     store = TestBed.inject(MockStore)
     fixture.detectChanges();
+
+    spyOn(store, 'dispatch').and.callFake(()=>{});
+
   });
 
 
   it('should create', () => {
-    store.subscribe(console.log)
-    store.setState({
-      contadores: 11,
-      prueba: 8
-    })
-    store.subscribe(console.log)
     expect(component).toBeTruthy();
+  });
+
+  it('should dispatch increment', ()=>{
+    component.increment();
+    expect(store.dispatch).toHaveBeenCalledWith(
+      increment()
+    )
   });
 
 });
