@@ -1,3 +1,4 @@
+import { AppState } from './lib/redux/reducer/index';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -14,13 +15,14 @@ import {
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'redux-app';
+  cargando$?: Observable<boolean>;
   count$?: Observable<number>;
 
-  constructor(private store: Store<{ contadores: number; prueba: number }>) {
-  }
-  
+  constructor(private store: Store<AppState>) {}
+
   ngOnInit(): void {
-    this.count$ = this.store.select('contadores');
+    this.count$ = this.store.select('contador');
+    this.cargando$ = this.store.select('usuario', 'loading');
   }
 
   increment() {
@@ -36,7 +38,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log("destroy app");
-
+    console.log('destroy app');
   }
 }

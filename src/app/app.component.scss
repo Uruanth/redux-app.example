@@ -1,0 +1,29 @@
+.container {
+  background: #000;
+  height: 95vh;
+  display: flex;
+  overflow: hidden;
+}
+
+.spinner {
+  width: 10em;
+  height: 10em;
+  border-top: 1em solid #1aff00;
+  border-right: 1em solid transparent;
+  border-radius: 50%;
+  margin: auto;
+  animation: spinner 2s infinite;
+}
+
+.circle {
+  width: 1em;
+  height: 1em;
+  background-color: #1aff00;
+  border-radius: 50%;
+  margin-left: 8.5em;
+  margin-top: 0.5em;
+}
+
+@keyframes spinner {
+  100% {transform: rotate(360deg)}
+}

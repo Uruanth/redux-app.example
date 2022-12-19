@@ -4,12 +4,12 @@ import {
   ActivatedRouteSnapshot,
   CanActivate,
   RouterStateSnapshot,
-  UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { catchError, map } from 'rxjs/operators';
 import {
+  login,
   loginError,
   loginExito,
 } from 'src/app/lib/redux/actions/login.actions';
@@ -28,6 +28,7 @@ export class AuthGuard implements CanActivate {
     console.log("state", state);
 
     console.log('can active guard');
+    this.store.dispatch(login());
     return this.service.logearUsuario().pipe(
       map((respuesta) => {
         console.log('can active guard exito');

@@ -1,6 +1,9 @@
-<div class="general">
-  <div class="cargando">
-    Cargando...
+<div class="container" *ngIf="cargando$ | async">
+  <div class="spinner">
+    <div class="circle"></div>
   </div>
+</div>
+<div class="cargado" *ngIf="!(cargando$ | async)">
+  <h2>Header</h2>
   <router-outlet></router-outlet>
 </div>
