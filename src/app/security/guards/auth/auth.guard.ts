@@ -9,35 +9,36 @@ import {
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { catchError, map } from 'rxjs/operators';
-import { loginError, loginExito } from 'src/app/lib/redux/actions/login.actions';
+import {
+  loginError,
+  loginExito,
+} from 'src/app/lib/redux/actions/login.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private service: LoginService, private store: Store){}
-
+  constructor(private service: LoginService, private store: Store) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  ): Observable<boolean> {
+    console.log("route", route);
+    console.log("state", state);
+
     console.log('can active guard');
     return this.service.logearUsuario().pipe(
-      map(respuesta => {
+      map((respuesta) => {
         console.log('can active guard exito');
-        this.store.dispatch(loginExito({usuario: respuesta}))
+        this.store.dispatch(loginExito({ usuario: respuesta }));
         return true;
       }),
       catchError((error) => {
         console.log('can active guard error');
-        this.store.dispatch(loginError({err: error}))
+        this.store.dispatch(loginError({ err: error }));
         return [false];
       })
-    )
+    );
   }
 }
