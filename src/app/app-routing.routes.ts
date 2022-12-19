@@ -1,11 +1,13 @@
 import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
+import { AuthGuard } from './security/guards/auth/auth.guard';
 
 const routes: Routes = [
   {
     path: "",
-    component: AppComponent
+    component: AppComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "modulo-uno",
